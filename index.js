@@ -84,11 +84,11 @@ class TrezorKeyring extends EventEmitter {
         .then((_) => {
           const from = this.unlockedAccount
           const to = from + n
-          this.accounts = []
 
           for (let i = from; i < to; i++) {
             const address = this._addressFromIndex(pathBase, i)
-            this.accounts.push(address)
+            if (this.accounts.indexOf(address) === -1)
+              this.accounts.push(address)
             this.page = 0
           }
           resolve(this.accounts)
